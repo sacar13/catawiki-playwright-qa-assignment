@@ -100,6 +100,33 @@ extraction pass also surfaced a real inconsistency: one of the five near-identic
 copy had, an easy thing to miss by eye across scattered files and an easy thing to catch once
 the duplication was centralised.
 
+**Revisiting a decision under continued pushback.** The `describe`/hooks question above was not
+settled in one pass. In a later review the engineer raised it again — still unconvinced that
+five single-test files should stay unwrapped, and still unconvinced by the reasoning against
+`beforeEach`/`afterEach`. Re-examining the actual spec files rather than repeating the earlier
+answer changed one position and reinforced the other:
+
+- On `describe`, the fact that the same question kept coming back was itself evidence that the
+  mixed rule ("wrap only when a file holds more than one test") was not self-explanatory, and
+  the cost of always wrapping is low. All 13 spec files were changed to use `test.describe()`
+  uniformly.
+- On `beforeEach`, the file-by-file evidence held up under a second look: in
+  `search-negative.spec.ts`, each of the four tests submits a different query as part of the
+  same step that opens the page, so there is no setup that is genuinely identical across tests
+  to extract. Rather than defend that position in the abstract a second time, the engineer asked
+  for hooks to be applied specifically where they _did_ fit. That surfaced three describe blocks
+  with byte-identical setup across every test in the block — `lot-navigation.spec.ts`,
+  `lot-data-contract.spec.ts`, and the three-way loop in `search-normalization.spec.ts` —
+  `beforeEach` was added there and nowhere else, and the full 27-test suite was re-run against
+  the live site to confirm no regression.
+
+**Removing `test.slow()` after questioning its own justification.** AI had earlier added
+`test.slow()` — tripling the timeout — to a test that occasionally ran close to its limit. When
+the engineer said this "didn't feel like a professional approach," the response was not to
+accept or defend it reflexively but to check the actual numbers: the test's observed runtime was
+around 37 seconds against a 90-second budget, headroom that tripling the timeout did nothing to
+address. The call was removed as unjustified rather than kept "just in case."
+
 ## How the generated code was reviewed and validated
 
 Every change was verified, not assumed:
