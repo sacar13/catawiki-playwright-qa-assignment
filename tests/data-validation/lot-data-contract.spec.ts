@@ -94,11 +94,10 @@ test.describe('Lot data contract and consistency', () => {
     });
 
     await test.step('Compare the card title with the details page title', async () => {
-      const detailsTitle = (await lotDetailsPage.getTitleText()).toLowerCase();
-      const cardTitle = card.title.toLowerCase();
+      const detailsTitle = await lotDetailsPage.getTitleText();
 
       expect(
-        detailsTitle.includes(cardTitle) || cardTitle.includes(detailsTitle),
+        lotDetailsPage.titleCorrespondsTo(card.title, detailsTitle),
         `card title "${card.title}" must correspond to details title "${detailsTitle}"`,
       ).toBe(true);
     });

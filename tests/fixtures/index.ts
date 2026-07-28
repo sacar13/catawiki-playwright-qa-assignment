@@ -28,5 +28,10 @@ export const test = base.extend<CatawikiFixtures>({
 
 export { expect } from '@playwright/test';
 
-/** Reusable multi-page setup flows built on top of the fixtures above. */
-export { performSearch, assertMinimumValidLots } from './searchFlows';
+/** Reusable multi-page setup flows and assertions built on top of the fixtures above. */
+export {
+  performSearch,
+  assertMinimumValidLots,
+  assertPageUsable,
+  assertSearchContextConsistent,
+} from './searchFlows';

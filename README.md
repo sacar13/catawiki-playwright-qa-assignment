@@ -197,9 +197,8 @@ catawiki-playwright-qa-assignment/
 │   ├── HomePage.ts
 │   ├── SearchResultsPage.ts           # Card filtering, visual ordering, result states
 │   └── LotDetailsPage.ts              # Title, favourites, current bid
-├── selectors/                         # Raw locator values only — one file per page
-│   ├── BaseSelectors.ts
-│   ├── HomePageSelectors.ts
+├── selectors/                         # Raw locator values only — one file per page that owns any
+│   ├── BaseSelectors.ts               # (HomePage has none beyond the shared header controls)
 │   ├── SearchResultsSelectors.ts
 │   └── LotDetailsSelectors.ts
 ├── shared/                            # Reusable code that belongs to no single page
@@ -216,7 +215,7 @@ catawiki-playwright-qa-assignment/
 ├── tests/
 │   ├── fixtures/
 │   │   ├── index.ts                   # Page objects exposed as fixtures
-│   │   └── searchFlows.ts             # performSearch, assertMinimumValidLots — shared setup
+│   │   └── searchFlows.ts             # performSearch and shared assertions across specs
 │   ├── test.data/
 │   │   └── catawikiTestData.ts
 │   ├── search/

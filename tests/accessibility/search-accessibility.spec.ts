@@ -1,26 +1,7 @@
 import { expect, test } from '../fixtures';
-import type { Locator, Page } from '@playwright/test';
+import { MAX_TAB_PRESSES } from '../../pages/BasePage';
 import { SEARCH_RESULTS_URL_PATTERN } from '../../pages/SearchResultsPage';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
-
-const MAX_TAB_PRESSES = 25;
-
-/**
- * Walks the tab order until the target receives focus. Returns the number of presses needed,
- * or null when the control could not be reached — which means a keyboard-only user cannot
- * start a search at all.
- */
-async function tabUntilFocused(page: Page, target: Locator): Promise<number | null> {
-  for (let presses = 1; presses <= MAX_TAB_PRESSES; presses += 1) {
-    await page.keyboard.press('Tab');
-
-    if (await target.evaluate((element) => element === document.activeElement)) {
-      return presses;
-    }
-  }
-
-  return null;
-}
 
 test.describe('Search accessibility', () => {
   test('[Accessibility][Keyboard] Verify the search control is reachable and identifiable without a mouse', async ({
@@ -68,7 +49,7 @@ test.describe('Search accessibility', () => {
       await page.locator('body').click({ position: { x: 0, y: 0 } });
       await page.keyboard.press('Escape');
 
-      const presses = await tabUntilFocused(page, homePage.searchInput);
+      const presses = await homePage.focusViaKeyboard(homePage.searchInput);
 
       test.info().annotations.push({
         type: 'observed-behaviour',

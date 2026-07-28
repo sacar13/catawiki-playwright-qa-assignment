@@ -20,6 +20,19 @@ const ROW_TOLERANCE_PX = 40;
  */
 export type SearchResultsState = 'results' | 'related-only' | 'empty' | 'unknown';
 
+/** A snapshot of everything on the results page that reflects the currently searched query. */
+export interface SearchContextState {
+  url: string;
+  queryInUrl: string | null;
+  queryInInput: string;
+  headingText: string;
+  validLots: number;
+}
+
+function readQueryParam(url: string): string | null {
+  return new URL(url).searchParams.get('q');
+}
+
 export class SearchResultsPage extends BasePage {
   constructor(page: Page) {
     super(page);
@@ -145,9 +158,19 @@ export class SearchResultsPage extends BasePage {
     return (await this.allLotCards.count()) > 0 ? 'results' : 'unknown';
   }
 
-  /** True when the application declares that nothing matched the query exactly. */
-  async isNoResultsStateShown(): Promise<boolean> {
-    const state = await this.getResultsState();
-    return state === 'empty' || state === 'related-only';
+  /**
+   * Snapshots the URL, search input, heading and result count together, so callers can check
+   * whether they agree with each other rather than trusting any single one in isolation.
+   */
+  async captureSearchContextState(): Promise<SearchContextState> {
+    const url = this.page.url();
+
+    return {
+      url,
+      queryInUrl: readQueryParam(url),
+      queryInInput: await this.getSearchInputValue().catch(() => ''),
+      headingText: await this.heading.innerText().catch(() => ''),
+      validLots: await this.getValidLotCount(),
+    };
   }
 }

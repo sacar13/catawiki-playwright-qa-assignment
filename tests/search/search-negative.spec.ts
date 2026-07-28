@@ -1,18 +1,11 @@
-import { expect, test } from '../fixtures';
+import { assertPageUsable, expect, test } from '../fixtures';
 import { SEARCH_RESULTS_URL_PATTERN } from '../../pages/SearchResultsPage';
-import type { Page } from '@playwright/test';
 import {
   PRIMARY_SEARCH_TERM,
   SPECIAL_CHARACTER_QUERY,
   WHITESPACE_ONLY_QUERY,
   buildNoResultsQuery,
 } from '../test.data/catawikiTestData';
-
-/** Fails if the page has collapsed into an error or blank state rather than a usable view. */
-async function expectPageUsable(page: Page): Promise<void> {
-  await expect(page.locator('body')).not.toContainText(/access denied|something went wrong/i);
-  await expect(page.getByRole('banner')).toBeVisible();
-}
 
 test.describe('Search negative and edge cases', () => {
   test('[Functional][Negative] Verify an empty search submission is handled safely', async ({
@@ -47,7 +40,7 @@ test.describe('Search negative and edge cases', () => {
       await expect(page, 'an empty query must not open a results page').not.toHaveURL(
         SEARCH_RESULTS_URL_PATTERN,
       );
-      await expectPageUsable(page);
+      await assertPageUsable(page);
     });
 
     await test.step('Verify the user can still search normally', async () => {
@@ -90,7 +83,7 @@ test.describe('Search negative and edge cases', () => {
         searchResultsPage.allLotCards,
         'a true empty state must not render lot cards',
       ).toHaveCount(0);
-      await expectPageUsable(page);
+      await assertPageUsable(page);
     });
 
     await test.step('Verify the user can recover with a normal search', async () => {
@@ -135,7 +128,7 @@ test.describe('Search negative and edge cases', () => {
         'a special-character query must not leave the page in an undeclared state',
       ).not.toBe('unknown');
 
-      await expectPageUsable(page);
+      await assertPageUsable(page);
     });
 
     await test.step('Verify the search remains usable afterwards', async () => {
@@ -183,7 +176,7 @@ test.describe('Search negative and edge cases', () => {
         'the page must tell the user that nothing matched',
       ).toBeVisible();
 
-      await expectPageUsable(page);
+      await assertPageUsable(page);
     });
 
     await test.step(`Replace the query with "${PRIMARY_SEARCH_TERM}" and submit again`, async () => {

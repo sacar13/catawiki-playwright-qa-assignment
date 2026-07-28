@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
+import { isCI as isCIEnv, isVideoDisabled } from './shared/helpers/environment';
 
-const isCI = !!process.env.CI;
+const isCI = isCIEnv();
 
 /**
  * The mobile spec is the only suite that requires an emulated device, so it is routed
@@ -46,7 +47,7 @@ export default defineConfig({
      * pause while the browser closes. Set PW_VIDEO=off for faster local feedback runs; the
      * default keeps failure videos, which is what CI and reviewers need.
      */
-    video: process.env.PW_VIDEO === 'off' ? 'off' : 'retain-on-failure',
+    video: isVideoDisabled() ? 'off' : 'retain-on-failure',
     trace: 'on-first-retry',
   },
   projects: [

@@ -1,18 +1,6 @@
 import { assertMinimumValidLots, expect, performSearch, test } from '../fixtures';
 import { LOT_DETAILS_URL_PATTERN } from '../../pages/LotDetailsPage';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
-import { normalizeWhitespace } from '../../shared/parsers/numberParser';
-
-/**
- * Card titles are clamped to two lines in the results grid, so a details-page title can be
- * longer than the captured card title. Correspondence is therefore checked with containment
- * in either direction rather than strict equality.
- */
-function titlesCorrespond(cardTitle: string, detailsTitle: string): boolean {
-  const card = normalizeWhitespace(cardTitle).toLowerCase();
-  const details = normalizeWhitespace(detailsTitle).toLowerCase();
-  return details.includes(card) || card.includes(details);
-}
 
 test.describe('Lot navigation', () => {
   // Both tests need an active search for the same term before they diverge; this is the one
@@ -56,7 +44,7 @@ test.describe('Lot navigation', () => {
 
         const detailsTitle = await lotDetailsPage.getTitleText();
         expect(
-          titlesCorrespond(secondCard.title, detailsTitle),
+          lotDetailsPage.titleCorrespondsTo(secondCard.title, detailsTitle),
           `card title "${secondCard.title}" does not correspond to details title "${detailsTitle}"`,
         ).toBe(true);
       });

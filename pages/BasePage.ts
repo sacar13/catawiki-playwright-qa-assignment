@@ -14,6 +14,9 @@ const consentDismissed = new WeakSet<Page>();
 /** Generous enough to cover the consent script loading slowly under parallel execution. */
 const CONSENT_APPEARANCE_TIMEOUT_MS = 15_000;
 
+/** Upper bound on how many Tab presses a keyboard-only user should need to reach a control. */
+export const MAX_TAB_PRESSES = 25;
+
 /**
  * Shared behaviour for every page object: the header search control (which Catawiki renders
  * on all pages) and conditional consent handling.
@@ -163,5 +166,25 @@ export abstract class BasePage {
 
   async getSearchInputValue(): Promise<string> {
     return this.searchInput.inputValue();
+  }
+
+  /**
+   * Walks the tab order until `target` receives focus. Returns the number of presses needed,
+   * or null when the control could not be reached — which means a keyboard-only user cannot
+   * reach it at all.
+   */
+  async focusViaKeyboard(
+    target: Locator,
+    maxPresses: number = MAX_TAB_PRESSES,
+  ): Promise<number | null> {
+    for (let presses = 1; presses <= maxPresses; presses += 1) {
+      await this.page.keyboard.press('Tab');
+
+      if (await target.evaluate((element) => element === document.activeElement)) {
+        return presses;
+      }
+    }
+
+    return null;
   }
 }

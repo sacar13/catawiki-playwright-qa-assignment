@@ -52,6 +52,17 @@ export class LotDetailsPage extends BasePage {
     return normalizeWhitespace(await this.title.innerText());
   }
 
+  /**
+   * Card titles are clamped to two lines in the results grid, so a details-page title can be
+   * longer than the captured card title. Correspondence is therefore checked with containment
+   * in either direction rather than strict equality.
+   */
+  titleCorrespondsTo(cardTitle: string, detailsTitle: string): boolean {
+    const card = normalizeWhitespace(cardTitle).toLowerCase();
+    const details = normalizeWhitespace(detailsTitle).toLowerCase();
+    return details.includes(card) || card.includes(details);
+  }
+
   async getFavoritesRawText(): Promise<string> {
     await this.favoritesCounter.waitFor({ state: 'visible' });
     return normalizeWhitespace(await this.favoritesCounter.innerText());
