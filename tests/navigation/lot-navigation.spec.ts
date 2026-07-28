@@ -15,14 +15,16 @@ function titlesCorrespond(cardTitle: string, detailsTitle: string): boolean {
 }
 
 test.describe('Lot navigation', () => {
+  // Both tests need an active search for the same term before they diverge; this is the one
+  // line of setup every test in this file has in common.
+  test.beforeEach(async ({ homePage, searchResultsPage }) => {
+    await performSearch(homePage, searchResultsPage, PRIMARY_SEARCH_TERM);
+  });
+
   test(
     '[Functional][Navigation] Verify the second valid search result opens the corresponding lot details page',
     { tag: '@critical' },
-    async ({ page, homePage, searchResultsPage, lotDetailsPage }) => {
-      await test.step('Search for the primary keyword', async () => {
-        await performSearch(homePage, searchResultsPage, PRIMARY_SEARCH_TERM);
-      });
-
+    async ({ page, searchResultsPage, lotDetailsPage }) => {
       await test.step('Verify at least two valid lot cards are available', async () => {
         await assertMinimumValidLots(searchResultsPage);
       });
@@ -68,13 +70,10 @@ test.describe('Lot navigation', () => {
 
   test('[Functional][Navigation] Verify a lot details page can be opened directly by URL and survives a reload', async ({
     page,
-    homePage,
     searchResultsPage,
     lotDetailsPage,
   }) => {
-    const lotUrl = await test.step('Obtain a valid lot URL from a live search', async () => {
-      await performSearch(homePage, searchResultsPage, PRIMARY_SEARCH_TERM);
-
+    const lotUrl = await test.step('Obtain a valid lot URL from the search results', async () => {
       // Deep-linking has no "second lot" requirement, so the first valid card is used here.
       // Only TC-CAT-01, 02, 04 and 16 assert the mandatory second-lot selection.
       const summary = await searchResultsPage.getLotCardSummary(0);

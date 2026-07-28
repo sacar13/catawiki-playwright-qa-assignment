@@ -36,16 +36,18 @@ const VARIATIONS: QueryVariation[] = [
 ];
 
 test.describe('Search query normalization', () => {
+  // Every variation starts from the same freshly opened, verified search control; only the
+  // query entered afterward differs, which is the thing each test actually exercises.
+  test.beforeEach(async ({ homePage }) => {
+    await homePage.open();
+    await expect(homePage.searchInput).toBeVisible();
+    await expect(homePage.searchInput).toBeEnabled();
+    await expect(homePage.searchButton).toBeVisible();
+  });
+
   for (const variation of VARIATIONS) {
     test(variation.title, async ({ page, homePage, searchResultsPage }) => {
       test.info().annotations.push({ type: 'test-case', description: variation.id });
-
-      await test.step('Open the homepage and verify the search controls', async () => {
-        await homePage.open();
-        await expect(homePage.searchInput).toBeVisible();
-        await expect(homePage.searchInput).toBeEnabled();
-        await expect(homePage.searchButton).toBeVisible();
-      });
 
       await test.step(`Enter the query "${variation.query}"`, async () => {
         await homePage.fillSearchQuery(variation.query);

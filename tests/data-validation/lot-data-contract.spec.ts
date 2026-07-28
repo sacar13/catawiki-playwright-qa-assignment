@@ -5,14 +5,17 @@ import { parseCurrentBid } from '../../shared/parsers/currencyParser';
 const PLACEHOLDER_TITLES = ['loading', 'undefined', 'null', 'n/a', '-', '...'];
 
 test.describe('Lot data contract and consistency', () => {
+  // Both tests need the same populated search before they diverge into different assertions.
+  test.beforeEach(async ({ homePage, searchResultsPage }) => {
+    await performSearch(homePage, searchResultsPage, PRIMARY_SEARCH_TERM);
+    await assertMinimumValidLots(searchResultsPage);
+  });
+
   test('[Functional][Data Validation] Verify retrieved lot details comply with expected data contracts', async ({
-    homePage,
     searchResultsPage,
     lotDetailsPage,
   }) => {
-    await test.step('Navigate to the second valid lot details page', async () => {
-      await performSearch(homePage, searchResultsPage, PRIMARY_SEARCH_TERM);
-      await assertMinimumValidLots(searchResultsPage);
+    await test.step('Open the second valid lot', async () => {
       await searchResultsPage.openLot(1);
       await expect(lotDetailsPage.title).toBeVisible();
     });
@@ -70,15 +73,9 @@ test.describe('Lot data contract and consistency', () => {
   });
 
   test('[Functional][Data Consistency] Verify lot data shown on the search card matches the lot details page', async ({
-    homePage,
     searchResultsPage,
     lotDetailsPage,
   }) => {
-    await test.step('Search and build the filtered valid-card collection', async () => {
-      await performSearch(homePage, searchResultsPage, PRIMARY_SEARCH_TERM);
-      await assertMinimumValidLots(searchResultsPage);
-    });
-
     const card = await test.step('Read the second valid card title and current bid', async () => {
       const summary = await searchResultsPage.getLotCardSummary(1);
 
