@@ -1,4 +1,4 @@
-import { assertMinimumValidLots, expect, test } from '../fixtures';
+import { assertLotOpened, assertMinimumValidLots, expect, test } from '../fixtures';
 import { SEARCH_RESULTS_URL_PATTERN } from '../../pages/SearchResultsPage';
 import { LOT_DETAILS_URL_PATTERN } from '../../pages/LotDetailsPage';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
@@ -57,13 +57,12 @@ test.describe('Search end-to-end', () => {
         await expect(page).toHaveURL(LOT_DETAILS_URL_PATTERN);
       });
 
-      await test.step('Verify the corresponding lot details page is displayed', async () => {
-        await expect(lotDetailsPage.title).toBeVisible();
-        expect(
-          lotDetailsPage.getLotIdFromUrl(),
+      await test.step('Verify the corresponding lot details page is displayed', () =>
+        assertLotOpened(
+          lotDetailsPage,
+          secondCard.lotId,
           'the opened lot must be the lot that was selected in the results',
-        ).toBe(secondCard.lotId);
-      });
+        ));
 
       const details =
         await test.step('Retrieve the lot title, favorites counter and current bid', async () => {

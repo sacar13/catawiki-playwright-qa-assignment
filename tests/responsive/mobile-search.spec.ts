@@ -1,4 +1,4 @@
-import { assertMinimumValidLots, expect, test } from '../fixtures';
+import { assertLotOpened, assertMinimumValidLots, expect, test } from '../fixtures';
 import { LOT_DETAILS_URL_PATTERN } from '../../pages/LotDetailsPage';
 import { SEARCH_RESULTS_URL_PATTERN } from '../../pages/SearchResultsPage';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
@@ -51,9 +51,10 @@ test.describe('Mobile search', () => {
     await test.step('Open the second valid lot and verify the details page', async () => {
       await searchResultsPage.openLot(1);
       await expect(page).toHaveURL(LOT_DETAILS_URL_PATTERN);
-      await expect(lotDetailsPage.title).toBeVisible();
-      expect(lotDetailsPage.getLotIdFromUrl(), 'the selected lot must be the one opened').toBe(
+      await assertLotOpened(
+        lotDetailsPage,
         secondCard.lotId,
+        'the selected lot must be the one opened',
       );
     });
 

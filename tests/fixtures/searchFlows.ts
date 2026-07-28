@@ -1,5 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 import type { HomePage } from '../../pages/HomePage';
+import type { LotDetailsPage } from '../../pages/LotDetailsPage';
 import type { SearchContextState, SearchResultsPage } from '../../pages/SearchResultsPage';
 import { MINIMUM_VALID_LOTS } from '../test.data/catawikiTestData';
 
@@ -38,6 +39,20 @@ export async function assertMinimumValidLots(
   ).toBeGreaterThanOrEqual(MINIMUM_VALID_LOTS);
 
   return count;
+}
+
+/**
+ * Fails unless the lot details page is showing exactly the lot identified by `expectedLotId`.
+ * A mis-targeted click should fail here, loudly, instead of corrupting whatever the test asserts
+ * next.
+ */
+export async function assertLotOpened(
+  lotDetailsPage: LotDetailsPage,
+  expectedLotId: string,
+  message = `the displayed lot must be lot ${expectedLotId}`,
+): Promise<void> {
+  await expect(lotDetailsPage.title, 'the lot details page must be visible').toBeVisible();
+  expect(lotDetailsPage.getLotIdFromUrl(), message).toBe(expectedLotId);
 }
 
 /** Fails if the page has collapsed into an error or blank state rather than a usable view. */

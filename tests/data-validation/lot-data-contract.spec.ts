@@ -1,4 +1,4 @@
-import { assertMinimumValidLots, expect, performSearch, test } from '../fixtures';
+import { assertLotOpened, assertMinimumValidLots, expect, performSearch, test } from '../fixtures';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
 import { parseCurrentBid } from '../../shared/parsers/currencyParser';
 
@@ -89,8 +89,7 @@ test.describe('Lot data contract and consistency', () => {
 
     await test.step('Open the second valid lot', async () => {
       await searchResultsPage.openLot(1);
-      await expect(lotDetailsPage.title).toBeVisible();
-      expect(lotDetailsPage.getLotIdFromUrl()).toBe(card.lotId);
+      await assertLotOpened(lotDetailsPage, card.lotId);
     });
 
     await test.step('Compare the card title with the details page title', async () => {

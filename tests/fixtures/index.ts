@@ -32,6 +32,7 @@ export { expect } from '@playwright/test';
 export {
   performSearch,
   assertMinimumValidLots,
+  assertLotOpened,
   assertPageUsable,
   assertSearchContextConsistent,
 } from './searchFlows';

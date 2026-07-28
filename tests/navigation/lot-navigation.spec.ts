@@ -1,4 +1,4 @@
-import { assertMinimumValidLots, expect, performSearch, test } from '../fixtures';
+import { assertLotOpened, assertMinimumValidLots, expect, performSearch, test } from '../fixtures';
 import { LOT_DETAILS_URL_PATTERN } from '../../pages/LotDetailsPage';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
 
@@ -35,12 +35,11 @@ test.describe('Lot navigation', () => {
       });
 
       await test.step('Verify the opened page corresponds to the selected result', async () => {
-        await expect(lotDetailsPage.title).toBeVisible();
-
-        expect(
-          lotDetailsPage.getLotIdFromUrl(),
+        await assertLotOpened(
+          lotDetailsPage,
+          secondCard.lotId,
           'the opened lot id must match the selected card lot id',
-        ).toBe(secondCard.lotId);
+        );
 
         const detailsTitle = await lotDetailsPage.getTitleText();
         expect(
@@ -85,10 +84,7 @@ test.describe('Lot navigation', () => {
       await page.reload({ waitUntil: 'domcontentloaded' });
       await lotDetailsPage.acceptCookiesIfPresent();
 
-      await expect(lotDetailsPage.title, 'lot content must survive a reload').toBeVisible();
-      expect(lotDetailsPage.getLotIdFromUrl(), 'reload must not change the lot').toBe(
-        lotIdBeforeReload,
-      );
+      await assertLotOpened(lotDetailsPage, lotIdBeforeReload, 'reload must not change the lot');
     });
   });
 });
