@@ -1,0 +1,90 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Read-only: the suite needs no secrets and writes nothing back to the repository.
+permissions:
+  contents: read
+
+jobs:
+  quality-gates:
+    name: Type check, lint, format and unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      # Deterministic, browser-free and independent of the live site, so these must always pass.
+      - name: Unit tests
+        run: npm run test:unit
+
+  live-site-tests:
+    name: Playwright tests against the live site
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: quality-gates
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      # Catawiki is fronted by Akamai bot protection, which answers headless browsers from
+      # data-centre IP ranges with HTTP 403 before any application markup is served. These
+      # tests therefore cannot be relied upon from hosted CI runners. They are executed so
+      # their report is always available, but they do not gate the build — the quality gates
+      # and unit tests above do. See the "CI execution" section of the README.
+      - name: Run Playwright tests
+        id: playwright
+        continue-on-error: true
+        run: npm test
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Report live-site outcome
+        if: always()
+        run: |
+          if [ "${{ steps.playwright.outcome }}" = "success" ]; then
+            echo "Live-site suite passed." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Live-site suite did not pass on the hosted runner." >> "$GITHUB_STEP_SUMMARY"
+            echo "This is expected when Catawiki's bot protection blocks the runner." >> "$GITHUB_STEP_SUMMARY"
+            echo "Download the playwright-report artifact to inspect the outcome." >> "$GITHUB_STEP_SUMMARY"
+          fi
