@@ -127,6 +127,17 @@ accept or defend it reflexively but to check the actual numbers: the test's obse
 around 37 seconds against a 90-second budget, headroom that tripling the timeout did nothing to
 address. The call was removed as unjustified rather than kept "just in case."
 
+**Catching a self-undermining entry in AI's own documentation.** `docs/PRODUCT_OBSERVATIONS.md`
+— itself an AI-authored document — listed "submitting an empty search gives no feedback" and
+"two different no-match states" as findings, even though each entry's own text already conceded
+the underlying behaviour was correct ("the behaviour itself... is correct", "very likely
+intentional"). The engineer questioned this directly: if the behaviour is correct, why record it
+as a finding at all? A screenshot of the live site prompted a fresh live re-check of both states
+first, confirming the code's model was accurate; that same scrutiny, applied to the document
+rather than the code, showed the two entries added nothing but padding. Both were removed. A
+findings document that lists expected behaviour alongside real issues (the missing accessible
+names, the consent-banner pointer-event timing) makes the real findings less credible, not more.
+
 ## How the generated code was reviewed and validated
 
 Every change was verified, not assumed:
@@ -150,6 +161,15 @@ Every change was verified, not assumed:
   guidance to treat keyboard editing as "testing the browser rather than the product" was
   corrected: because the search field is a React-controlled component, key handling is
   application code and deserves strict assertions.
+- **Documentation cross-checked against the brief and the running code, not assumed complete.**
+  Asked to verify `docs/TEST_CASES.md`, all 27 test titles were diffed word-for-word against the
+  actual `test()` strings in the spec files, and each of the original 10 client-provided cases
+  was traced through its merges and splits to a final id. The result was not padded with invented
+  problems: the one real inconsistency found turned out to be in README's summary table, not in
+  `TEST_CASES.md` itself. Separately, the engineer spotted a genuine gap by reading a spec file
+  directly in the editor, not from any report: no test title carried its own `TC-CAT-XX` id, so a
+  failing test in a CI log couldn't be traced back to its specification without a manual lookup.
+  All 27 titles and their documentation entries were updated to close that gap.
 
 ## Statement
 
