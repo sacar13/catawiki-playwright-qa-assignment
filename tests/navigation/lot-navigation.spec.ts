@@ -10,7 +10,7 @@ test.describe('Lot navigation', () => {
   });
 
   test(
-    '[Functional][Navigation] Verify the second valid search result opens the corresponding lot details page',
+    '[TC-CAT-02][Functional][Navigation] Verify the second valid search result opens the corresponding lot details page',
     { tag: '@critical' },
     async ({ page, searchResultsPage, lotDetailsPage }) => {
       await test.step('Verify at least two valid lot cards are available', async () => {
@@ -55,7 +55,7 @@ test.describe('Lot navigation', () => {
     },
   );
 
-  test('[Functional][Navigation] Verify a lot details page can be opened directly by URL and survives a reload', async ({
+  test('[TC-CAT-05][Functional][Navigation] Verify a lot details page can be opened directly by URL and survives a reload', async ({
     page,
     searchResultsPage,
     lotDetailsPage,

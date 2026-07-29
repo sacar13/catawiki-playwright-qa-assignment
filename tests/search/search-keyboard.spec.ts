@@ -13,7 +13,7 @@ test.describe('Search keyboard interaction', () => {
    * swallow a Delete, or desynchronise the rendered value from component state — this test
    * therefore verifies the exact input value after every single edit.
    */
-  test('[Functional][Keyboard] Verify search field supports keyboard entry, editing, selection replacement and submission', async ({
+  test('[TC-CAT-06][Functional][Keyboard] Verify search field supports keyboard entry, editing, selection replacement and submission', async ({
     page,
     homePage,
     searchResultsPage,

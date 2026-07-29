@@ -8,7 +8,7 @@ import {
 } from '../test.data/catawikiTestData';
 
 test.describe('Search negative and edge cases', () => {
-  test('[Functional][Negative] Verify an empty search submission is handled safely', async ({
+  test('[TC-CAT-10][Functional][Negative] Verify an empty search submission is handled safely', async ({
     page,
     homePage,
   }) => {
@@ -51,7 +51,7 @@ test.describe('Search negative and edge cases', () => {
     });
   });
 
-  test('[Functional][Negative] Verify a whitespace-only search submission is handled safely', async ({
+  test('[TC-CAT-11][Functional][Negative] Verify a whitespace-only search submission is handled safely', async ({
     page,
     homePage,
     searchResultsPage,
@@ -95,7 +95,7 @@ test.describe('Search negative and edge cases', () => {
     });
   });
 
-  test('[Functional][Negative] Verify a query containing safe special characters is handled safely', async ({
+  test('[TC-CAT-12][Functional][Negative] Verify a query containing safe special characters is handled safely', async ({
     page,
     homePage,
     searchResultsPage,
@@ -137,7 +137,7 @@ test.describe('Search negative and edge cases', () => {
     });
   });
 
-  test('[Functional][Negative] Verify a no-result search shows an empty state and the user can recover', async ({
+  test('[TC-CAT-13][Functional][Negative] Verify a no-result search shows an empty state and the user can recover', async ({
     page,
     homePage,
     searchResultsPage,

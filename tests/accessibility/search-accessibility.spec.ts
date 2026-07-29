@@ -4,7 +4,7 @@ import { SEARCH_RESULTS_URL_PATTERN } from '../../pages/SearchResultsPage';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
 
 test.describe('Search accessibility', () => {
-  test('[Accessibility][Keyboard] Verify the search control is reachable and identifiable without a mouse', async ({
+  test('[TC-CAT-15][Accessibility][Keyboard] Verify the search control is reachable and identifiable without a mouse', async ({
     page,
     homePage,
     searchResultsPage,

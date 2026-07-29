@@ -10,7 +10,7 @@ function isCatawikiRequest(url: string): boolean {
 }
 
 test.describe('Search API and health', () => {
-  test('[API][Contract] Verify the search request succeeds and returns a valid results payload', async ({
+  test('[TC-CAT-17][API][Contract] Verify the search request succeeds and returns a valid results payload', async ({
     page,
     homePage,
   }) => {
@@ -43,7 +43,7 @@ test.describe('Search API and health', () => {
     });
   });
 
-  test('[Health][Monitoring] Verify the mandatory flow produces no uncaught errors and no server failures', async ({
+  test('[TC-CAT-18][Health][Monitoring] Verify the mandatory flow produces no uncaught errors and no server failures', async ({
     page,
     homePage,
     searchResultsPage,

@@ -142,7 +142,7 @@ Project: `desktop-chromium`.
 
 ### TC-CAT-01
 
-**Title:** `[Functional][Positive][E2E] Verify user can search for "train", open the second valid lot and retrieve lot details`
+**Title:** `[TC-CAT-01][Functional][Positive][E2E] Verify user can search for "train", open the second valid lot and retrieve lot details`
 **Priority:** Critical — this is the assignment's mandatory scenario. Tagged `@critical`
 (`npm run test:critical`).
 **Additional preconditions:** at least two valid search results are available for `train`.
@@ -204,7 +204,7 @@ The values above are an illustration only and are **never** used as fixed test d
 
 ### TC-CAT-02
 
-**Title:** `[Functional][Navigation] Verify the second valid search result opens the corresponding lot details page`
+**Title:** `[TC-CAT-02][Functional][Navigation] Verify the second valid search result opens the corresponding lot details page`
 **Priority:** Critical. Tagged `@critical` (`npm run test:critical`).
 **Additional preconditions:** at least two valid, visible and actionable lot cards are
 available for `train`.
@@ -250,7 +250,7 @@ verify that _some_ lot page opened.
 
 ### TC-CAT-03
 
-**Title:** `[Functional][Data Validation] Verify retrieved lot details comply with expected data contracts`
+**Title:** `[TC-CAT-03][Functional][Data Validation] Verify retrieved lot details comply with expected data contracts`
 **Priority:** High
 **Additional preconditions:** at least two valid search results exist for `train`; the second
 valid lot can be opened successfully.
@@ -291,7 +291,7 @@ TypeScript typing rather than hardcoded values.
 
 ### TC-CAT-04
 
-**Title:** `[Functional][Data Consistency] Verify lot data shown on the search card matches the lot details page`
+**Title:** `[TC-CAT-04][Functional][Data Consistency] Verify lot data shown on the search card matches the lot details page`
 **Priority:** High
 **Additional preconditions:** at least two valid lot cards are available for `train`; the
 second valid card displays a current bid.
@@ -330,7 +330,7 @@ or a currency change — this keeps the test meaningful without making it flaky.
 
 ### TC-CAT-05
 
-**Title:** `[Functional][Navigation] Verify a lot details page can be opened directly by URL and survives a reload`
+**Title:** `[TC-CAT-05][Functional][Navigation] Verify a lot details page can be opened directly by URL and survives a reload`
 **Priority:** Low
 **Additional preconditions:** a valid lot URL is obtained during the test from a live search
 (never hardcoded, because lots close and are removed).
@@ -364,7 +364,7 @@ harmless formatting differences in the query. Project: `desktop-chromium`.
 
 ### TC-CAT-06
 
-**Title:** `[Functional][Keyboard] Verify search field supports keyboard entry, editing, selection replacement and submission`
+**Title:** `[TC-CAT-06][Functional][Keyboard] Verify search field supports keyboard entry, editing, selection replacement and submission`
 **Priority:** Medium
 **Additional preconditions:** search field is visible and enabled; keyboard input is
 supported.
@@ -435,7 +435,7 @@ entirely, which the test itself caught immediately.
 
 ### TC-CAT-07
 
-**Title:** `[Functional][Positive] Verify search handles a query with leading and trailing whitespace`
+**Title:** `[TC-CAT-07][Functional][Positive] Verify search handles a query with leading and trailing whitespace`
 **Priority:** Medium
 **Test data:** `" train "`
 
@@ -456,7 +456,7 @@ entirely, which the test itself caught immediately.
 
 ### TC-CAT-08
 
-**Title:** `[Functional][Positive] Verify search handles an uppercase query`
+**Title:** `[TC-CAT-08][Functional][Positive] Verify search handles an uppercase query`
 **Priority:** Medium
 **Test data:** `"TRAIN"`
 
@@ -476,7 +476,7 @@ entirely, which the test itself caught immediately.
 
 ### TC-CAT-09
 
-**Title:** `[Functional][Positive] Verify search handles a mixed-case query`
+**Title:** `[TC-CAT-09][Functional][Positive] Verify search handles a mixed-case query`
 **Priority:** Medium
 **Test data:** `"TrAiN"`
 
@@ -509,7 +509,7 @@ unmatchable query with recovery. Project: `desktop-chromium`.
 
 ### TC-CAT-10
 
-**Title:** `[Functional][Negative] Verify an empty search submission is handled safely`
+**Title:** `[TC-CAT-10][Functional][Negative] Verify an empty search submission is handled safely`
 **Priority:** Medium
 **Test data:** empty value
 
@@ -540,7 +540,7 @@ regression (for example, the empty query starting to navigate somewhere) is caug
 
 ### TC-CAT-11
 
-**Title:** `[Functional][Negative] Verify a whitespace-only search submission is handled safely`
+**Title:** `[TC-CAT-11][Functional][Negative] Verify a whitespace-only search submission is handled safely`
 **Priority:** Medium
 **Test data:** three space characters `"   "`
 
@@ -569,7 +569,7 @@ of several acceptable behaviours.
 
 ### TC-CAT-12
 
-**Title:** `[Functional][Negative] Verify a query containing safe special characters is handled safely`
+**Title:** `[TC-CAT-12][Functional][Negative] Verify a query containing safe special characters is handled safely`
 **Priority:** Medium
 **Test data:** `"train & rail"`
 
@@ -597,7 +597,7 @@ tags, SQL injection patterns, XSS payloads, destructive content, or excessively 
 
 ### TC-CAT-13
 
-**Title:** `[Functional][Negative] Verify a no-result search shows an empty state and the user can recover`
+**Title:** `[TC-CAT-13][Functional][Negative] Verify a no-result search shows an empty state and the user can recover`
 **Priority:** Medium
 **Test data:** dynamically generated unique query; recovery query `train`
 
@@ -654,7 +654,7 @@ results would be a false pass.
 
 ### TC-CAT-14
 
-**Title:** `[Functional][Navigation] Verify search state is preserved after browser Back navigation and refresh behavior is consistent`
+**Title:** `[TC-CAT-14][Functional][Navigation] Verify search state is preserved after browser Back navigation and refresh behavior is consistent`
 **Priority:** Medium
 **Additional preconditions:** at least two valid search results are available for `train`.
 **Test data:** search query `train`; target result — second valid lot
@@ -727,7 +727,7 @@ recorded values.
 
 ### TC-CAT-15
 
-**Title:** `[Accessibility][Keyboard] Verify the search control is reachable and identifiable without a mouse`
+**Title:** `[TC-CAT-15][Accessibility][Keyboard] Verify the search control is reachable and identifiable without a mouse`
 **Priority:** Low
 
 **Description:** Verify that the primary search control exposes a usable accessible name and
@@ -758,7 +758,7 @@ can be reached and operated using the keyboard alone.
 
 ### TC-CAT-16
 
-**Title:** `[Functional][Responsive] Verify the mandatory search and lot-details flow works on a mobile viewport`
+**Title:** `[TC-CAT-16][Functional][Responsive] Verify the mandatory search and lot-details flow works on a mobile viewport`
 **Priority:** High
 **Additional preconditions:** a supported Playwright mobile device profile is configured; at
 least two valid search results are available for `train`.
@@ -814,7 +814,7 @@ _"not similar in implementation"_. Project: `desktop-chromium`.
 
 ### TC-CAT-17
 
-**Title:** `[API][Contract] Verify the search request succeeds and returns a valid results payload`
+**Title:** `[TC-CAT-17][API][Contract] Verify the search request succeeds and returns a valid results payload`
 **Priority:** Medium
 **Additional preconditions:** search results are available for `train`.
 **Test data:** search query `train`
@@ -841,7 +841,7 @@ is asserted, because the catalogue changes continuously.
 
 ### TC-CAT-18
 
-**Title:** `[Health][Monitoring] Verify the mandatory flow produces no uncaught errors and no server failures`
+**Title:** `[TC-CAT-18][Health][Monitoring] Verify the mandatory flow produces no uncaught errors and no server failures`
 **Priority:** Medium
 **Test data:** search query `train`
 
@@ -879,7 +879,7 @@ default an invalid value to zero.
 
 ### TC-CAT-19
 
-**Title:** `[Unit][Data] Favorites counter without separators is parsed as an integer`
+**Title:** `[TC-CAT-19][Unit][Data] Favorites counter without separators is parsed as an integer`
 **Test data:** `"39"`, `"0"`, `"7"`
 
 **Steps:**
@@ -895,7 +895,7 @@ default an invalid value to zero.
 
 ### TC-CAT-20
 
-**Title:** `[Unit][Data] Favorites counter with thousands separators is parsed as an integer`
+**Title:** `[TC-CAT-20][Unit][Data] Favorites counter with thousands separators is parsed as an integer`
 **Test data:** `"1,234"`, `"1.234"`, `"12 345"`
 
 **Steps:**
@@ -913,7 +913,7 @@ default an invalid value to zero.
 
 ### TC-CAT-21
 
-**Title:** `[Unit][Data] Current bid with symbol prefix is parsed into amount and currency`
+**Title:** `[TC-CAT-21][Unit][Data] Current bid with symbol prefix is parsed into amount and currency`
 **Test data:** `"€ 53"`, `"€ 320"`, `"€112"`
 
 **Steps:**
@@ -933,7 +933,7 @@ default an invalid value to zero.
 
 ### TC-CAT-22
 
-**Title:** `[Unit][Data] Dot thousands separator is not treated as a decimal separator`
+**Title:** `[TC-CAT-22][Unit][Data] Dot thousands separator is not treated as a decimal separator`
 **Test data:** `"€ 1.200"`
 
 **Steps:**
@@ -952,7 +952,7 @@ most common European formatting trap and a silent 1000x error if handled incorre
 
 ### TC-CAT-23
 
-**Title:** `[Unit][Data] European format with dot thousands and comma decimals is parsed correctly`
+**Title:** `[TC-CAT-23][Unit][Data] European format with dot thousands and comma decimals is parsed correctly`
 **Test data:** `"€ 1.200,50"`
 
 **Steps:**
@@ -970,7 +970,7 @@ most common European formatting trap and a silent 1000x error if handled incorre
 
 ### TC-CAT-24
 
-**Title:** `[Unit][Data] Anglo format with suffixed currency is parsed correctly`
+**Title:** `[TC-CAT-24][Unit][Data] Anglo format with suffixed currency is parsed correctly`
 **Test data:** `"1,200.50 €"`
 
 **Steps:**
@@ -986,7 +986,7 @@ most common European formatting trap and a silent 1000x error if handled incorre
 
 ### TC-CAT-25
 
-**Title:** `[Unit][Data] Non-breaking and narrow spaces are normalized before parsing`
+**Title:** `[TC-CAT-25][Unit][Data] Non-breaking and narrow spaces are normalized before parsing`
 **Test data:** values containing U+00A0, U+202F, U+2009, U+2007, U+2060
 
 **Steps:**
@@ -1004,7 +1004,7 @@ most common European formatting trap and a silent 1000x error if handled incorre
 
 ### TC-CAT-26
 
-**Title:** `[Unit][Negative][Data] Unparseable values throw ParseError instead of returning zero or NaN`
+**Title:** `[TC-CAT-26][Unit][Negative][Data] Unparseable values throw ParseError instead of returning zero or NaN`
 **Test data:** `""`, `"—"`, `"abc"`, `"No bids"`
 
 **Steps:**
@@ -1022,7 +1022,7 @@ most common European formatting trap and a silent 1000x error if handled incorre
 
 ### TC-CAT-27
 
-**Title:** `[Unit][Negative][Data] Missing currency information throws a descriptive ParseError`
+**Title:** `[TC-CAT-27][Unit][Negative][Data] Missing currency information throws a descriptive ParseError`
 **Test data:** `"1200"` (numeric but no currency, no hint)
 
 **Steps:**

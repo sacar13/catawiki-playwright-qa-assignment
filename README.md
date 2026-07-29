@@ -274,7 +274,7 @@ or build order. Full step-by-step detail lives in [`docs/TEST_CASES.md`](docs/TE
 | TC-CAT-16    | Mandatory flow on a mobile viewport                              | Mobile                      |
 | TC-CAT-17    | Search endpoint HTTP contract                                    | API & Health                |
 | TC-CAT-18    | No uncaught JS errors, no 5xx during the mandatory flow          | API & Health                |
-| TC-CAT-19–27 | Parser contracts for European currency formats                   | Unit — Data Parsing         |
+| TC-CAT-19–27 | Parser contracts: favorites, currency formats and normalization  | Unit — Data Parsing         |
 
 ## 18. Assumptions
 

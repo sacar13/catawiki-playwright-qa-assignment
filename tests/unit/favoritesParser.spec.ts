@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { parseFavoritesCount } from '../../shared/parsers/favoritesParser';
 
 test.describe('favoritesParser', () => {
-  test('[Unit][Data] Favorites counter without separators is parsed as an integer', () => {
+  test('[TC-CAT-19][Unit][Data] Favorites counter without separators is parsed as an integer', () => {
     for (const [raw, expected] of [
       ['39', 39],
       ['0', 0],
@@ -16,7 +16,7 @@ test.describe('favoritesParser', () => {
     }
   });
 
-  test('[Unit][Data] Favorites counter with thousands separators is parsed as an integer', () => {
+  test('[TC-CAT-20][Unit][Data] Favorites counter with thousands separators is parsed as an integer', () => {
     expect(parseFavoritesCount('1,234')).toBe(1234);
     expect(parseFavoritesCount('1.234')).toBe(1234);
     expect(parseFavoritesCount('12 345')).toBe(12345);

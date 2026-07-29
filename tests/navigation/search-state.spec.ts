@@ -9,7 +9,7 @@ import { SEARCH_RESULTS_URL_PATTERN } from '../../pages/SearchResultsPage';
 import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
 
 test.describe('Search state persistence', () => {
-  test('[Functional][Navigation] Verify search state is preserved after browser Back navigation and refresh behavior is consistent', async ({
+  test('[TC-CAT-14][Functional][Navigation] Verify search state is preserved after browser Back navigation and refresh behavior is consistent', async ({
     page,
     homePage,
     searchResultsPage,

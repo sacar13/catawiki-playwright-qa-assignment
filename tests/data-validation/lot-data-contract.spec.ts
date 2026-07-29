@@ -11,7 +11,7 @@ test.describe('Lot data contract and consistency', () => {
     await assertMinimumValidLots(searchResultsPage);
   });
 
-  test('[Functional][Data Validation] Verify retrieved lot details comply with expected data contracts', async ({
+  test('[TC-CAT-03][Functional][Data Validation] Verify retrieved lot details comply with expected data contracts', async ({
     searchResultsPage,
     lotDetailsPage,
   }) => {
@@ -72,7 +72,7 @@ test.describe('Lot data contract and consistency', () => {
     });
   });
 
-  test('[Functional][Data Consistency] Verify lot data shown on the search card matches the lot details page', async ({
+  test('[TC-CAT-04][Functional][Data Consistency] Verify lot data shown on the search card matches the lot details page', async ({
     searchResultsPage,
     lotDetailsPage,
   }) => {

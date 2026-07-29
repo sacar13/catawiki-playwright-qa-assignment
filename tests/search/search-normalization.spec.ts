@@ -46,7 +46,7 @@ test.describe('Search query normalization', () => {
   });
 
   for (const variation of VARIATIONS) {
-    test(variation.title, async ({ page, homePage, searchResultsPage }) => {
+    test(`[${variation.id}]${variation.title}`, async ({ page, homePage, searchResultsPage }) => {
       test.info().annotations.push({ type: 'test-case', description: variation.id });
 
       await test.step(`Enter the query "${variation.query}"`, async () => {

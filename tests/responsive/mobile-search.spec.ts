@@ -9,7 +9,7 @@ test.describe('Mobile search', () => {
    * Catawiki renders the same search field and lot card markup on mobile, and the shared
    * `visible=true` filtering already resolves whichever search control the viewport exposes.
    */
-  test('[Functional][Responsive] Verify the mandatory search and lot-details flow works on a mobile viewport', async ({
+  test('[TC-CAT-16][Functional][Responsive] Verify the mandatory search and lot-details flow works on a mobile viewport', async ({
     page,
     homePage,
     searchResultsPage,

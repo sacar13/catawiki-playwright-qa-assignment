@@ -7,7 +7,7 @@ const NBSP = '\u00A0';
 const THIN_SPACE = '\u2009';
 
 test.describe('numberParser', () => {
-  test('[Unit][Data] Non-breaking and narrow spaces are normalized before parsing', () => {
+  test('[TC-CAT-25][Unit][Data] Non-breaking and narrow spaces are normalized before parsing', () => {
     expect(normalizeWhitespace(`€${NBSP}1.200`)).toBe('€ 1.200');
     expect(normalizeWhitespace(`  €${THIN_SPACE}53  `)).toBe('€ 53');
 
@@ -19,7 +19,7 @@ test.describe('numberParser', () => {
     expect(bid.raw, 'raw must keep the original unicode spacing').toBe(raw);
   });
 
-  test('[Unit][Negative][Data] Unparseable values throw ParseError instead of returning zero or NaN', () => {
+  test('[TC-CAT-26][Unit][Negative][Data] Unparseable values throw ParseError instead of returning zero or NaN', () => {
     for (const raw of ['', '—', 'abc', 'No bids']) {
       expect(() => parseFavoritesCount(raw), `favorites "${raw}" must throw`).toThrow(ParseError);
       expect(() => parseCurrentBid(raw), `bid "${raw}" must throw`).toThrow(ParseError);

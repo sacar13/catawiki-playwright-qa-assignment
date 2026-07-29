@@ -5,7 +5,7 @@ import { PRIMARY_SEARCH_TERM } from '../test.data/catawikiTestData';
 
 test.describe('Search end-to-end', () => {
   test(
-    '[Functional][Positive][E2E] Verify user can search for "train", open the second valid lot and retrieve lot details',
+    '[TC-CAT-01][Functional][Positive][E2E] Verify user can search for "train", open the second valid lot and retrieve lot details',
     { tag: '@critical' },
     async ({ page, homePage, searchResultsPage, lotDetailsPage }) => {
       await test.step('Open the English Catawiki homepage', async () => {
