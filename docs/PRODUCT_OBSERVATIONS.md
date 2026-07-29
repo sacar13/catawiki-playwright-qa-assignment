@@ -37,37 +37,7 @@ path with the same affordance as "accept."
 
 ## 2. UX robustness
 
-### 2.1 Submitting an empty search gives no feedback
-
-Clicking the magnifier button with an empty search field does nothing observable: no error, no
-shake/focus animation, no disabled state on the button beforehand. A user might reasonably
-wonder whether their click registered at all. The behaviour itself (safely no-op) is correct
-and was deliberately preserved by our tests — only the _lack of any acknowledgement_ is the
-observation.
-
-**Suggestion:** a subtle affordance (briefly disabling the button, a focus ring, or a one-line
-hint) would remove the ambiguity without changing the underlying validation behaviour.
-
-### 2.2 Two different "nothing matched" experiences, with no visible distinction rule
-
-Catawiki renders two different empty-result experiences depending on the query:
-
-| Query type              | Result                                                                                                                            |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Whitespace-only         | `No matches for " "` — a bare empty state, zero lot cards                                                                         |
-| Unmatchable random text | `No exact results. Check out these related objects.` — same empty state text pattern, but ~24 unrelated lots are shown underneath |
-
-This is very likely intentional (a related-items fallback is a reasonable retention feature),
-and our tests were written to respect both as valid outcomes rather than treat either as wrong.
-The observation is narrower: a user typing a genuine typo has no way to tell, from the page
-alone, whether the objects shown below are _related to their intent_ or simply _popular
-filler_ — the two cases read almost identically at a glance.
-
-**Suggestion:** consider a small visual/copy distinction between "we found nothing, here is
-what's popular right now" and a true zero-results state, so users don't mistake unrelated
-suggestions for an approximate match.
-
-### 2.3 Consent banner can intercept a click aimed at the page behind it
+### 2.1 Consent banner can intercept a click aimed at the page behind it
 
 The consent platform's root element keeps intercepting pointer events for a brief window after
 its dismiss button visually disappears (our automation had to explicitly wait for the root
