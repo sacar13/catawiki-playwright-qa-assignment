@@ -571,7 +571,7 @@ of several acceptable behaviours.
 
 **Title:** `[TC-CAT-12][Functional][Negative] Verify a query containing safe special characters is handled safely`
 **Priority:** Medium
-**Test data:** `"train & rail"`
+**Test data:** `"train & co."`
 
 **Description:** Verify that a query containing non-malicious special characters is handled
 safely. This validates functional robustness only.
